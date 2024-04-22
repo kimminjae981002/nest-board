@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  // 의존성 주입이 아니라 직접 명시
   private readonly logger = new Logger(AppController.name);
 
   @Get()
