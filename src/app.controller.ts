@@ -1,15 +1,19 @@
 import { Controller, Get, HttpException, HttpStatus, Logger, Param, Query } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('get')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService
+    ,private readonly configService: ConfigService
+  ) {}
 
   // 의존성 주입이 아니라 직접 명시
   private readonly logger = new Logger(AppController.name);
 
   @Get()
   getHello(): string {
+    console.log(this.configService.get('ENVIRONMENT'));
     return this.appService.getHello();
   }
 
