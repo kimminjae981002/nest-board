@@ -11,22 +11,22 @@ export class BoardController {
     }
 
     @Get(':id')
-    find(@Param('id')id: number) {
-        return `find id: ${id}`
+    find(@Param('id', )id: number) {
+        return this.boardService.find(+id);
     }
 
     @Post()
     create(@Body() data) {
-        return 'create'
+        return this.boardService.create(data);
     }
 
     @Put(':id')
     update(@Body() data, @Param('id')id: number) {
-        return 'update'
+        return this.boardService.update(data,+id)
     }
 
     @Delete(':id')
     remove(@Param('id') id: number) {
-        return 'delete'
+        return this.boardService.delete(+id)
     }
 }
