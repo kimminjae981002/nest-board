@@ -9,7 +9,7 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-  
+
   @Get('paramName/:name')
   getParamName(@Param('name')name: string): string {
     return `${name} hello`;
