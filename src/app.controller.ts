@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Param, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller('get')
@@ -7,7 +7,13 @@ export class AppController {
 
   @Get()
   getHello(): string {
+    throw new HttpException('NotFound', HttpStatus.NOT_FOUND);
     return this.appService.getHello();
+  }
+
+  @Get('exception')
+  exception(): string {
+    throw new HttpException('NotFound', HttpStatus.NOT_FOUND);
   }
 
   @Get('paramName/:name')
