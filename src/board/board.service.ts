@@ -1,4 +1,5 @@
 import { Injectable, Delete } from '@nestjs/common';
+import { CreateBoardDto } from './dto/create-board.dto';
 
 @Injectable()
 export class BoardService {
@@ -36,7 +37,7 @@ export class BoardService {
 
 
     // 게시글 생성
-    create(data) {
+    create(data: CreateBoardDto) {
         const newBoard = {
             id: this.getNextId(), ...data
         };
@@ -54,7 +55,7 @@ export class BoardService {
     }
 
     // 게시글 수정
-    update(data, id: number) {
+    update(data: CreateBoardDto, id: number) {
         const index = this.boards.findIndex((board) => board.id === id);
     
         if (index !== -1) {
