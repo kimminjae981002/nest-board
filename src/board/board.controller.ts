@@ -1,6 +1,6 @@
 import { ApiTags } from '@nestjs/swagger';
 import { BoardService } from './board.service';
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, ValidationPipe } from '@nestjs/common';
 import { CreateBoardDto } from './dto/create-board.dto';
 
 @Controller('board')
@@ -14,22 +14,22 @@ export class BoardController {
     }
 
     @Get(':id')
-    find(@Param('id', )id: number) {
-        return this.boardService.find(+id);
+    find(@Param('id', ParseIntPipe )id: number) {
+        return this.boardService.find(id);
     }
 
     @Post()
-    create(@Body() data: CreateBoardDto) {
+    create(@Body(new ValidationPipe()) data: CreateBoardDto) {
         return this.boardService.create(data);
     }
 
     @Put(':id')
-    update(@Body() data: CreateBoardDto, @Param('id')id: number) {
-        return this.boardService.update(data,+id)
+    update(@Body() data: CreateBoardDto, @Param('id', ParseIntPipe)id: number) {
+        return this.boardService.update(data,id)
     }
 
     @Delete(':id')
-    remove(@Param('id') id: number) {
-        return this.boardService.delete(+id)
+    remove(@Param('id', ParseIntPipe) id: number) {
+        return this.boardService.delete(id)
     }
 }
