@@ -1,12 +1,13 @@
+import { BoardService } from './board.service';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 
 @Controller('board')
 export class BoardController {
-
+    constructor(private readonly boardService: BoardService){}
     // board
     @Get()
     findAll() {
-        return 'findAll'
+        return this.boardService.findAll();
     }
 
     @Get(':id')
