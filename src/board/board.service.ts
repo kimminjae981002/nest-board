@@ -20,25 +20,6 @@ export class BoardService {
     @InjectRepository(Board)
     private boardRepository: Repository<Board>,
   ) {}
-
-  private boards = [
-    {
-      id: 1,
-      title: 'hello world',
-      content: 'content 1',
-    },
-    {
-      id: 2,
-      title: 'hello world',
-      content: 'content 2',
-    },
-    {
-      id: 3,
-      title: 'hello world',
-      content: 'content 3',
-    },
-  ];
-
   // 게시글 전체 찾기
   async findAll() {
     const boards = await this.boardRepository.find({
@@ -81,37 +62,25 @@ export class BoardService {
     return board;
   }
 
-  // 다음 id
-  getNextId() {
-    const next = this.boards.length + 1;
-
-    return next;
-  }
-
   // 게시글 수정
-  update(data: UpdateBoardDto, id: number) {
-    const index = this.boards.findIndex((board) => board.id === id);
+  async update(data: UpdateBoardDto, id: number) {
+    const board = await this.boardRepository.findOneBy({ id });
 
-    if (index !== -1) {
-      this.boards[index] = {
-        ...this.boards[index], // 기존 요소의 속성을 복사
-        ...data, // 새로운 데이터를 덮어씀
-      };
-      return this.boards[index];
-    } else {
-      return null; // 해당 id를 가진 요소를 찾지 못한 경우 null 반환 또는 에러 처리
+    if (!board) {
+      throw new HttpException('NotFound', HttpStatus.NOT_FOUND);
     }
+
+    await this.boardRepository.update(id, { ...data });
   }
 
   // 게시글 삭제
-  delete(id: number) {
-    const index = this.boards.findIndex((board) => board.id === id);
+  async delete(id: number) {
+    const board = await this.boardRepository.findOneBy({ id });
 
-    if (index !== -1) {
-      this.boards.splice(index, 1);
-      return '삭제';
-    } else {
-      return null;
+    if (!board) {
+      throw new HttpException('NotFound', HttpStatus.NOT_FOUND);
     }
+
+    await this.boardRepository.delete({ id });
   }
 }
