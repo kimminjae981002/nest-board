@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity() // {name: simple_board} 테이블 명 수정 가능
 export class Board {
@@ -24,4 +25,10 @@ export class Board {
 
     @CreateDateColumn() // 생성됐을 떄의 시간
     createdAt: Date;
+
+    @ApiProperty({description: '작성한 게시글'})
+    // 여러 개의 board는 하나의 user를 받는다.
+    @ManyToOne(() => User) 
+    @JoinColumn({name: 'userId'}) // userId를 이용해 join을 해준다. board의 userId와 user의 
+    user: User // user는 User entity
 }
