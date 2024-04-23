@@ -71,8 +71,12 @@ export class BoardService {
   }
 
   // 게시글 생성
-  create(data: CreateBoardDto) {
-    const board = this.boardRepository.create(data);
+  async create(data: CreateBoardDto) {
+    // 인스턴스만 생성하고 db에 저장하지는 않는다.
+    const board = await this.boardRepository.create(data);
+
+    // 실제 db에 저장한다.
+    await this.boardRepository.save(board);
 
     return board;
   }
