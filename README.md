@@ -22,7 +22,7 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+<!-- ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
@@ -70,22 +70,27 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## License
 
-Nest is [MIT licensed](LICENSE). -->
+Nest is [MIT licensed](LICENSE). --> -->
 
 
 ## package.json 마이그레이션
 "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource ./src/database/data-source.ts",
+ </br>
  // typeorm에서 dataSource 인자로 가져온다.
  </br>
     "migration:create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create 
     ./src/database/migrations/Migration",
+     </br>
     // 빈 파일을 경로에 생성한다.
     </br>
     "migration:generate": "yarn typeorm migration:generate ./src/database/migrations/Migration",
+     </br>
     // 실행된 마이그레이션 파일을 경로에 생성한다.
     </br>
     "migration:run": "yarn typeorm  migration:run",
+     </br>
     // generate한 파일을 실행한다.
     </br>
     "migration:revert": "yarn typeorm migration:revert",
+     </br>
     // 마지막 마이그레이션으로 돌린다.
