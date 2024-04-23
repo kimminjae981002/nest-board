@@ -1,6 +1,8 @@
 import { config } from 'dotenv';
+import { Board } from 'src/board/entities/board.entity';
+import { User } from 'src/user/entities/user.entity';
 import { DataSource } from 'typeorm';
-console.log(DataSource)
+
 config({ path: '.env' });
 
 const dataSource = new DataSource({
@@ -10,17 +12,18 @@ const dataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PW,
   database: 'postgres',
-  entities: ['src/**/*.entity{.ts,.js}'],
+  entities: [User, Board],
   migrations: ['src/database/migrations/*.ts'],
   migrationsTableName: 'migrations',
 });
 
-dataSource.initialize()
-    .then(() => {
-        console.log("Data Source has been initialized!")
-    })
-    .catch((err) => {
-        console.error("Error during Data Source initialization", err)
-    })
+dataSource
+  .initialize()
+  .then(() => {
+    console.log('Data Source has been initialized!');
+  })
+  .catch((err) => {
+    console.error('Error during Data Source initialization', err);
+  });
 
 export default dataSource;

@@ -4,9 +4,10 @@ import { AppService } from './app.service';
 import { BoardController } from './board/board.controller';
 import { BoardModule } from './board/board.module';
 import { LoggingMiddleware } from './middlewares/logging.middleware';
-import  ConfigModule  from './config/index';
+import ConfigModule from './config/index';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
+import { User } from './user/entities/user.entity';
+import { Board } from './board/entities/board.entity';
 @Module({
   imports: [
     ConfigModule(),
@@ -17,11 +18,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: process.env.DB_USERNAME, // db username
       password: process.env.DB_PW, // db user pw
       database: 'postgres', // db 이름
-      entities: [__dirname + '/**/*.entity.{.ts,.js}'], // entity 파일 경로
+      entities: [User, Board], // entity 파일 경로
       synchronize: false, // entity 파일 값이 변경되었을 때 db에 반영하겠나?
-      logging: true
+      logging: true,
     }),
-    BoardModule],
+    BoardModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
