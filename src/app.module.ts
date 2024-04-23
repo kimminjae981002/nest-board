@@ -19,6 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: 'postgres', // db 이름
       entities: [__dirname + '/**/*.entity.{.ts,.js}'], // entity 파일 경로
       synchronize: false, // entity 파일 값이 변경되었을 때 db에 반영하겠나?
+      logging: true
     }),
     BoardModule],
   controllers: [AppController],

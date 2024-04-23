@@ -71,3 +71,17 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+## package.json 마이그레이션
+"typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource ./src/database/data-source.ts",
+ // typeorm에서 dataSource 인자로 가져온다.
+    "migration:create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create 
+    ./src/database/migrations/Migration",
+    // 빈 파일을 경로에 생성한다.
+    "migration:generate": "yarn typeorm migration:generate ./src/database/migrations/Migration",
+    // 실행된 마이그레이션 파일을 경로에 생성한다.
+    "migration:run": "yarn typeorm  migration:run",
+    // generate한 파일을 실행한다.
+    "migration:revert": "yarn typeorm migration:revert",
+    // 마지막 마이그레이션으로 돌린다.
