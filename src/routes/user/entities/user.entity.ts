@@ -27,7 +27,7 @@ export class User {
   name: string;
 
   @UpdateDateColumn() // 수정됐을 때의 시간
-  updateAt: Date;
+  updatedAt: Date;
 
   @CreateDateColumn() // 생성됐을 떄의 시간
   createdAt: Date;
@@ -36,4 +36,8 @@ export class User {
   // 하나의 user는 여러 개의 board를 가질 수 있다.
   @OneToMany(() => Board, (board) => board.user) // board entity에 user와 관계 설정
   boards: Board[]; // user entity에 boards 속성 정의 - 배열로 가진다.
+
+  // sql 쿼리문을 이용해서 컬럼 설정
+  @Column({ select: false, nullable: true, insert: false, update: false })
+  boardCount?: number;
 }

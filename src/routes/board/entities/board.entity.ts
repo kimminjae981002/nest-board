@@ -28,7 +28,7 @@ export class Board {
   content: string;
 
   @UpdateDateColumn() // 수정됐을 때의 시간
-  updateAt: Date;
+  updatedAt: Date;
 
   @CreateDateColumn() // 생성됐을 떄의 시간
   createdAt: Date;
