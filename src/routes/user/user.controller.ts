@@ -9,7 +9,8 @@ export class UserController {
 
   @Post()
   signup(@Body(new ValidationPipe()) data: CreateUserDto) {
-    return this.userServcie.signup({ ...data });
+    console.log('haha');
+    return this.userServcie.signup(data);
   }
 
   @Get()

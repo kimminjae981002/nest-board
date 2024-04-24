@@ -26,6 +26,12 @@ export class User {
   @Column()
   name: string;
 
+  @Column()
+  email: string;
+
+  @Column()
+  phoneNumber: string;
+
   @UpdateDateColumn() // 수정됐을 때의 시간
   updatedAt: Date;
 
