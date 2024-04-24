@@ -1,10 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   OneToMany,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Board } from '../../board/entities/board.entity';
 
@@ -18,12 +19,18 @@ export class User {
   username: string;
 
   @ApiProperty({ description: '유저비밀번호', example: 'password' })
-  @Column({ select: false })
+  @Column()
   password: string;
 
   @ApiProperty({ description: '이름', example: '홍길동' })
   @Column()
   name: string;
+
+  @UpdateDateColumn() // 수정됐을 때의 시간
+  updateAt: Date;
+
+  @CreateDateColumn() // 생성됐을 떄의 시간
+  createdAt: Date;
 
   @ApiProperty({ description: '유저' })
   // 하나의 user는 여러 개의 board를 가질 수 있다.
