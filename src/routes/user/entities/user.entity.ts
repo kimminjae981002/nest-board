@@ -19,7 +19,7 @@ export class User {
   username: string;
 
   @ApiProperty({ description: '유저비밀번호', example: 'password' })
-  @Column()
+  @Column() // {select: false} select로 가져올 수 없음
   password: string;
 
   @ApiProperty({ description: '이름', example: '홍길동' })

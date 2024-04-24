@@ -4,6 +4,8 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Board } from '../board/entities/board.entity';
+import { hash, compare } from 'bcrypt';
+import { SigninUserDto } from './dto/signin-user.dto';
 
 @Injectable()
 export class UserService {
@@ -13,7 +15,36 @@ export class UserService {
   ) {}
 
   async signup(data: CreateUserDto) {
-    return await this.userRepository.save(data);
+    const { password } = data;
+
+    const encryptPassword = await hash(password, 10);
+
+    return await this.userRepository.save({
+      ...data,
+      password: encryptPassword,
+    });
+  }
+
+  async signin(data: SigninUserDto) {
+    const { username, password } = data;
+
+    const user = await this.getUser(username);
+
+    if (!user) {
+      return '존재하지 않는 유저입니다.';
+    }
+
+    const signin = await compare(password, user.password);
+
+    if (signin) {
+      return '로그인 성공';
+    } else {
+      return '로그인 실패';
+    }
+  }
+
+  async getUser(username: string) {
+    return await this.userRepository.findOneBy({ username });
   }
 
   async getUsers() {
