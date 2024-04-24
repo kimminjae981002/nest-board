@@ -1,15 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { User } from 'src/routes/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from '../../user/entities/user.entity';
 
 @Entity() // {name: simple_board} 테이블 명 수정 가능
 export class Board {

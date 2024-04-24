@@ -1,4 +1,4 @@
-import { User } from '../../user/entities/user.entity';
+import { User } from 'src/routes/user/entities/user.entity';
 import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 

@@ -1,6 +1,7 @@
 import { config } from 'dotenv';
-import { Board } from 'src/board/entities/board.entity';
-import { User } from 'src/user/entities/user.entity';
+import { Board } from 'src/routes/board/entities/board.entity';
+import { User } from 'src/routes/user/entities/user.entity';
+
 import { DataSource } from 'typeorm';
 
 config({ path: '.env' });
