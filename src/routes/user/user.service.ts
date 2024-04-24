@@ -6,6 +6,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { Board } from '../board/entities/board.entity';
 import { hash, compare } from 'bcrypt';
 import { SigninUserDto } from './dto/signin-user.dto';
+import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class UserService {
@@ -35,6 +36,17 @@ export class UserService {
     }
 
     const signin = await compare(password, user.password);
+
+    // jwt 정보에 줄 것들
+    const payload = {
+      username,
+      name: user.name,
+    };
+
+    const accessToken = jwt.sign(payload, process.env.JWT_KEY, {
+      expiresIn: '10s',
+    });
+    console.log(accessToken);
 
     if (signin) {
       return '로그인 성공';
