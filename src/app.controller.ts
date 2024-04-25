@@ -1,3 +1,4 @@
+import { AuthService } from './auth/auth.service';
 import {
   Body,
   Controller,
@@ -21,6 +22,7 @@ export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly configService: ConfigService,
+    private readonly authService: AuthService,
   ) {}
 
   // 의존성 주입이 아니라 직접 명시
@@ -61,6 +63,6 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Request() req) {
-    return req.user;
+    return this.authService.login(req.user);
   }
 }
