@@ -16,6 +16,7 @@ import { AppService } from './app.service';
 import { ConfigService } from '@nestjs/config';
 import { AuthGuard } from '@nestjs/passport';
 import { LocalAuthGuard } from './auth/local-auth.guard';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @Controller('get')
 export class AppController {
@@ -64,5 +65,13 @@ export class AppController {
   @Post('login')
   async login(@Request() req) {
     return this.authService.login(req.user);
+  }
+
+  // jwtAuthGuard를 이용한 내 정보 가져오기
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  async me(@Request() req) {
+    console.log('ha');
+    return req.user;
   }
 }
