@@ -9,6 +9,7 @@ import { User } from './routes/user/entities/user.entity';
 import { Board } from './routes/board/entities/board.entity';
 import { BoardModule } from './routes/board/board.module';
 import { UserModule } from './routes/user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { UserModule } from './routes/user/user.module';
     }),
     BoardModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

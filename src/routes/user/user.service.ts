@@ -46,7 +46,6 @@ export class UserService {
     const accessToken = jwt.sign(payload, process.env.JWT_KEY, {
       expiresIn: '10s',
     });
-    console.log(accessToken);
 
     if (signin) {
       return '로그인 성공';
