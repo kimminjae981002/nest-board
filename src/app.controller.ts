@@ -14,6 +14,7 @@ import {
 import { AppService } from './app.service';
 import { ConfigService } from '@nestjs/config';
 import { AuthGuard } from '@nestjs/passport';
+import { LocalAuthGuard } from './auth/local-auth.guard';
 
 @Controller('get')
 export class AppController {
@@ -57,7 +58,7 @@ export class AppController {
   }
 
   // passport에서 사용한다.
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Request() req) {
     return req.user;
