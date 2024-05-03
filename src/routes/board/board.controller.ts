@@ -9,10 +9,12 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('board')
 @ApiTags('board')
@@ -29,6 +31,7 @@ export class BoardController {
     return this.boardService.find(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body(new ValidationPipe()) data: CreateBoardDto) {
     return this.boardService.create(data);

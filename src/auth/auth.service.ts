@@ -32,7 +32,9 @@ export class AuthService {
   }
 
   async login(user: User) {
+    // token 정보에는 user의 id, name, username이 속해있다.
     const payload = {
+      id: user.id, // id도 판별해서 토큰을 생성한다.
       username: user.username,
       name: user.name,
     };
