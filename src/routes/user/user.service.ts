@@ -48,7 +48,7 @@ export class UserService {
     });
 
     if (signin) {
-      return '로그인 성공';
+      return { message: '로그인 성공', accessToken: accessToken };
     } else {
       return '로그인 실패';
     }

@@ -13,7 +13,17 @@ async function bootstrap() {
     .setDescription('게시판 API')
     .setVersion('1.0')
     .addTag('board') // CONTROLLER와 매핑된다
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'Bearer',
+        name: 'JWT',
+        in: 'header',
+      },
+      'accessToken',
+    )
     .build();
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document); // 경로 = localhost:3000/api
 

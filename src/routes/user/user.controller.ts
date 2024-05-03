@@ -6,20 +6,20 @@ import { SigninUserDto } from './dto/signin-user.dto';
 @ApiTags('user')
 @Controller('user')
 export class UserController {
-  constructor(private readonly userServcie: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   @Post('signup')
   signup(@Body(new ValidationPipe()) data: CreateUserDto) {
-    return this.userServcie.signup(data);
+    return this.userService.signup(data);
   }
 
   @Post('signin')
-  signin(@Body(new ValidationPipe()) data: SigninUserDto) {
-    return this.userServcie.signin(data);
+  async signin(@Body(new ValidationPipe()) data: SigninUserDto) {
+    return this.userService.signin(data);
   }
 
   @Get()
   getUsers() {
-    return this.userServcie.getUsers();
+    return this.userService.getUsers();
   }
 }
