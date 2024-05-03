@@ -34,11 +34,13 @@ export class BoardController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(
-    @UserInfo() userInfo,
-    @Body(new ValidationPipe()) data: CreateBoardDto,
-  ) {
-    return this.boardService.create({ userId: userInfo.id, ...data });
+  create(@UserInfo() userInfo, @Body('content') content, @Body('title') title) {
+    console.log(userInfo);
+    return this.boardService.create({
+      content,
+      title,
+      userId: userInfo.id,
+    });
   }
 
   @UseGuards(JwtAuthGuard)
@@ -48,8 +50,9 @@ export class BoardController {
     @Body(new ValidationPipe()) data: UpdateBoardDto,
     @Param('id', ParseIntPipe) id: number,
   ) {
+    console.log(userInfo);
     const board = await this.boardService.find(id);
-    if (userInfo.id !== board.id) {
+    if (userInfo.id !== board.userId) {
       return '주인이 아닙니다.';
     }
     return this.boardService.update(data, id);
@@ -59,7 +62,7 @@ export class BoardController {
   @Delete(':id')
   async remove(@UserInfo() userInfo, @Param('id', ParseIntPipe) id: number) {
     const board = await this.boardService.find(id);
-    if (userInfo.id !== board.id) {
+    if (userInfo.id !== board.userId) {
       return '주인이 아닙니다.';
     }
     return this.boardService.delete(id);
