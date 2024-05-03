@@ -4,7 +4,7 @@ import { User } from 'src/routes/user/entities/user.entity';
 
 import { DataSource } from 'typeorm';
 
-config({ path: '.env' });
+config({ path: `.env.${process.env.NODE_ENV}.local` });
 
 const dataSource = new DataSource({
   type: 'postgres',
