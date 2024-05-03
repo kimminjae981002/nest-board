@@ -12,6 +12,7 @@
     "start:dev": "cross-env NODE_ENV=development nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "cross-env NODE_ENV=production pm2 start dist/main.js",
+    "stop:prod": "cross-env NODE_ENV=production pm2 stop dist/main.js",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource ./src/database/data-source.ts",
     "migration:create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create ./src/database/migrations/Migration",
     "migration:generate": "yarn typeorm migration:generate ./src/database/migrations/Migration",
@@ -83,7 +84,9 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "roots": [
+      "src"
+    ],
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -92,6 +95,9 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "src/(.*)": "<rootDir>/src/$1"
+    }
   }
 }
