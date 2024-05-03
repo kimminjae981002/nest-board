@@ -9,7 +9,9 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { JwtStrategy } from './jwt.strategy';
+import { config } from 'dotenv';
 
+config({ path: `.env.${process.env.NODE_ENV}.local` });
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
